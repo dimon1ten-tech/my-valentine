@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>С 14 Февраля!</title>
+    <style>
+        body {
+            background-color: #fff0f3; /* Нежно-розовый */
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow-x: hidden;
+        }
+        .container { text-align: center; z-index: 2; }
+        h1 { color: #ff4d6d; }
+        
+        /* Анимация сердечек на фоне */
+        .heart {
+            position: absolute;
+            color: #ff758f;
+            font-size: 20px;
+            animation: float 5s infinite linear;
+            opacity: 0.7;
+        }
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-10vh) rotate(360deg); }
+        }
+
+        /* Галерея фото */
+        .gallery {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .photo-card {
+            width: 200px;
+            height: 250px;
+            border: 5px solid white;
+            border-bottom: 20px solid white;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transform: rotate(-5deg);
+            transition: 0.3s;
+            object-fit: cover;
+        }
+        .photo-card:nth-child(even) { transform: rotate(5deg); }
+        .photo-card:hover { transform: scale(1.1) rotate(0deg); z-index: 10; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="final-text">Ты прошел опрос! ❤️</h1>
+        <div class="gallery">
+            <img src="ССЫЛКА_НА_ФОТО_1" class="photo-card">
+            <img src="ССЫЛКА_НА_ФОТО_2" class="photo-card">
+            <img src="ССЫЛКА_НА_ФОТО_3" class="photo-card">
+        </div>
+        <h2 style="color: #c9184a; margin-top: 30px;">Тут будет твой финальный текст!</h2>
+    </div>
+
+    <script>
+        // Создание летающих сердечек
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+        setInterval(createHeart, 300);
+    </script>
+</body>
+</html>
