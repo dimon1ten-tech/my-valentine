@@ -63,7 +63,22 @@
         </div>
         <h2 style="color: #c9184a; margin-top: 30px;">Тут будет твой финальный текст!</h2>
     </div>
+<div style="text-align: center; margin-top: 20px;">
+    <p style="font-size: 14px; color: #ff4d6d;">Включи атмосферу: 👇</p>
+    <audio id="myAudio" controls style="width: 250px; height: 30px;">
+        <source src="music.mp3" type="audio/mpeg">
+        Ваш браузер не поддерживает аудио.
+    </audio>
+</div>
 
+<script>
+  // Попытка автовоспроизведения после клика в любом месте сайта
+  document.body.addEventListener('click', function() {
+      var audio = document.getElementById('myAudio');
+      if (audio.paused) {
+          audio.play();
+      }
+  }, { once: true });
     <script>
         // Создание летающих сердечек
         function createHeart() {
