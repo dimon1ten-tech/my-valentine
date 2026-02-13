@@ -2,6 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>С 14 Февраля!</title>
     <style>
         body {
@@ -15,9 +16,11 @@
             margin: 0;
             overflow-x: hidden;
         }
-        .container { text-align: center; z-index: 2; }
-        h1 { color: #ff4d6d; }
-        
+
+        .container { text-align: center; z-index: 2; padding: 20px; }
+        h1 { color: #ff4d6d; margin-bottom: 10px; }
+        h2 { color: #c9184a; font-size: 18px; }
+
         /* Анимация сердечек на фоне */
         .heart {
             position: absolute;
@@ -25,10 +28,13 @@
             font-size: 20px;
             animation: float 5s infinite linear;
             opacity: 0.7;
+            user-select: none;
+            pointer-events: none;
         }
+
         @keyframes float {
-            0% { transform: translateY(100vh) rotate(0deg); }
-            100% { transform: translateY(-10vh) rotate(360deg); }
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
         }
 
         /* Галерея фото */
@@ -39,6 +45,7 @@
             justify-content: center;
             margin-top: 20px;
         }
+
         .photo-card {
             width: 200px;
             height: 250px;
@@ -48,49 +55,66 @@
             transform: rotate(-5deg);
             transition: 0.3s;
             object-fit: cover;
+            border-radius: 5px;
         }
+
         .photo-card:nth-child(even) { transform: rotate(5deg); }
         .photo-card:hover { transform: scale(1.1) rotate(0deg); z-index: 10; }
+
+        .music-block {
+            margin-top: 30px;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 15px;
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
+        }
     </style>
 </head>
 <body>
+
     <div class="container">
         <h1 id="final-text">Ты прошла опрос! ❤️</h1>
+        
         <div class="gallery">
-            <img src="photo_1jpg.jpg" class="photo-card">
-            <img src="photo_2.jpg" class="photo-card">
-            <img src="photo_3.jpg" class="photo-card">
+            <img src="photo_1.jpg" class="photo-card" alt="Мы">
+            <img src="photo_2.jpg" class="photo-card" alt="Любовь">
+            <img src="photo_3.jpg" class="photo-card" alt="Вместе">
         </div>
-        <h2 style="color: #c9184a; margin-top: 30px;">Тут будет твой финальный текст!</h2>
-    </div>
-<div style="text-align: center; margin-top: 20px;">
-    <p style="font-size: 14px; color: #ff4d6d;">Включи атмосферу: 👇</p>
-    <audio id="myAudio" controls style="width: 250px; height: 30px;">
-        <source src="Skriptonit_-_JEto_lyubov_76079125.mp3" type="audio/mpeg">
-        Ваш браузер не поддерживает аудио.
-    </audio>
-</div>
 
-<script>
-  // Попытка автовоспроизведения после клика в любом месте сайта
-  document.body.addEventListener('click', function() {
-      var audio = document.getElementById('myAudio');
-      if (audio.paused) {
-          audio.play();
-      }
-  }, { once: true });
+        <h2>Тут будет твой финальный текст! ❤️</h2>
+
+        <div class="music-block">
+            <p style="font-size: 14px; color: #ff4d6d; margin-bottom: 10px;">Включи атмосферу: 👇</p>
+            <audio id="myAudio" controls style="width: 250px; height: 35px;">
+                <source src="Skriptonit_-_JEto_lyubov_76079125.mp3" type="audio/mpeg">
+                Ваш браузер не поддерживает аудио.
+            </audio>
+        </div>
+    </div>
+
     <script>
-        // Создание летающих сердечек
+        // 1. Создание летающих сердечек
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart');
             heart.innerHTML = '❤️';
             heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
             document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 5000);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
         }
         setInterval(createHeart, 300);
+
+        // 2. Автозапуск музыки при первом клике
+        document.body.addEventListener('click', function() {
+            const audio = document.getElementById('myAudio');
+            if (audio.paused) {
+                audio.play().catch(e => console.log("Нужен клик для запуска музыки"));
+            }
+        }, { once: true });
     </script>
 </body>
 </html>
